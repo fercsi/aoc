@@ -21,6 +21,21 @@ func captureOutput(f func()) string {
 	return buf.String()
 }
 
+func TestShowResult(t *testing.T) {
+	// Reset resultIndex before testing
+	resultIndex = 0
+
+	output := captureOutput(func() {
+		ShowResult(42, "Hello World!")
+	})
+
+	expected := "1: 42\n2: Hello World!\n"
+
+	if output != expected {
+		t.Errorf("expected:\n%s\nbut got:\n%s", expected, output)
+	}
+}
+
 func TestShowBytesCondensed(t *testing.T) {
 	input := [][]byte{
 		[]byte("abc"),
