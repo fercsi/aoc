@@ -16,9 +16,24 @@ Example of how to import and use it:
 import "github.com/fercsi/aoc"
 
 func main() {
-    // usage example
+    aoc.ReadInputIntList()
+    ...
 }
 ```
+
+Dijkstra module:
+
+```go
+import "github.com/fercsi/aoc/dijkstra"
+
+func main() {
+    graph := dijkstra.Graph{}
+    ...
+    distances := dijkstra.Dijkstra(graph, 0, len(Graph))
+}
+```
+
+
 
 ## Features
 
@@ -53,6 +68,12 @@ func main() {
 ### Save results as an image
 
 - `func SaveBytesImage(filename string, image [][]byte, colors map[byte]int)`
+
+### Dijkstra algprithm
+
+- `type Edge struct`
+- `type Graph map[int][]Edge`
+- `func Dijkstra(graph Graph, start int, n int) []int`
 
 ## Documentation
 
