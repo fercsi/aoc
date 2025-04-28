@@ -64,6 +64,13 @@ func main() {
 - `func (coord Coord) Down() Coord`
 - `func (coord Coord) Left() Coord`
 - `func (coord Coord) Right() Coord`
+- `func (coord Coord) Neighbours(width, height int) []Coord`
+- `func (coord Coord) AllNeighbours() []Coord`
+- `func (coord Coord) Neighbours8(width, height int) []Coord`
+- `func (coord Coord) AllNeighbours8() []Coord`
+- `func Distance(coord1, coord2 Coord) int`
+- `func AtCoord[E any](area [][]E, coord Coord) E`
+- `func AtCoordUnlimited[E any](area [][]E, coord Coord, defaultValue E) E`
 
 ### Save results as an image
 
