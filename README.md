@@ -76,6 +76,12 @@ func main() {
 
 - `func SaveBytesImage(filename string, image [][]byte, colors map[byte]int)`
 
+### Further tools
+
+- `func Sum[E constraints.Ordered](s []E) E`
+- `func SumFunc[E constraints.Ordered](s []E, f func(e E) E) E`
+- `func SumSeq[E constraints.Ordered](seq iter.Seq[E]) E`
+
 ### Dijkstra algprithm
 
 - `type Edge struct`
