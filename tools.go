@@ -1,12 +1,17 @@
 package aoc
 
-import (
-	"golang.org/x/exp/constraints"
-	"iter"
-)
+import "iter"
+
+type addable interface {
+    ~int | ~int8 | ~int16 | ~int32 | ~int64 |
+    ~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 |
+    ~float32 | ~float64 |
+    ~complex64 | ~complex128 |
+    ~string
+}
 
 // Sum returns the sum of all elements in the slice.
-func Sum[E constraints.Ordered](s []E) E {
+func Sum[E addable](s []E) E {
 	var sum E
 	for _, v := range s {
 		sum += v
@@ -15,7 +20,7 @@ func Sum[E constraints.Ordered](s []E) E {
 }
 
 // SumFunc maps each element using f and returns the sum of the results.
-func SumFunc[E constraints.Ordered](s []E, f func(e E) E) E {
+func SumFunc[E addable](s []E, f func(e E) E) E {
 	var sum E
 	for _, v := range s {
 		sum += f(v)
@@ -24,7 +29,7 @@ func SumFunc[E constraints.Ordered](s []E, f func(e E) E) E {
 }
 
 // Sum returns the sum of all elements defined by seq.
-func SumSeq[E constraints.Ordered](seq iter.Seq[E]) E {
+func SumSeq[E addable](seq iter.Seq[E]) E {
 	var sum E
 	for v := range seq {
 		sum += v
