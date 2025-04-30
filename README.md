@@ -71,6 +71,7 @@ func main() {
 - `func Distance(coord1, coord2 Coord) int`
 - `func AtCoord[E any](area [][]E, coord Coord) E`
 - `func AtCoordUnlimited[E any](area [][]E, coord Coord, defaultValue E) E`
+- `func Boundaries(coords []Coord) (Coord, Coord)`
 
 ### Save results as an image
 
@@ -78,9 +79,9 @@ func main() {
 
 ### Further tools
 
-- `func Sum[E constraints.Ordered](s []E) E`
-- `func SumFunc[E constraints.Ordered](s []E, f func(e E) E) E`
-- `func SumSeq[E constraints.Ordered](seq iter.Seq[E]) E`
+- `func Sum[E addable](s []E) E`
+- `func SumFunc[S any, E addable](s []S, f func(e S) E) E`
+- `func SumSeq[E addable](seq iter.Seq[E]) E`
 
 ### Dijkstra algprithm
 

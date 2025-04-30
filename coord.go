@@ -1,5 +1,7 @@
 package aoc
 
+import "math"
+
 // Coord represents a 2D coordinate point
 type Coord struct {
 	X, Y int
@@ -117,4 +119,28 @@ func AtCoordUnlimited[E any](area [][]E, coord Coord, defaultValue E) E {
 		return defaultValue
 	}
 	return row[coord.X]
+}
+
+// Boundaries returns the top left corner and the bottom right corner of the
+// smallestboundary box containing each coordinates
+func Boundaries(coords []Coord) (Coord, Coord) {
+	minx := math.MaxInt
+	maxx := math.MinInt
+	miny := minx
+	maxy := maxx
+	for _, s := range coords {
+		if s.X < minx {
+			minx = s.X
+		}
+		if s.X > maxx {
+			maxx = s.X
+		}
+		if s.Y < miny {
+			miny = s.Y
+		}
+		if s.Y > maxy {
+			maxy = s.Y
+		}
+	}
+	return Coord{minx, miny}, Coord{maxx, maxy}
 }

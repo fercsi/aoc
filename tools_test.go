@@ -57,6 +57,17 @@ func TestSumFunc(t *testing.T) {
 			t.Errorf("SumFunc(upper) = %s; want %s", got, want)
 		}
 	})
+
+	t.Run("Convatenation of digits", func(t *testing.T) {
+		digits := []int{1, 9, 7, 5}
+		want := "1975"
+		got := SumFunc(digits, func(d int) string {
+			return string(byte(d) + '0')
+		})
+		if got != want {
+			t.Errorf("SumFunc(digits) = %s; want %s", got, want)
+		}
+	})
 }
 
 func TestSumSeq(t *testing.T) {

@@ -326,3 +326,24 @@ func TestAtCoordUnlimited(t *testing.T) {
 		})
 	}
 }
+
+func TestBoundaries(t *testing.T) {
+	coords := []Coord{
+		{X: 1, Y: 5},
+		{X: 7, Y: 4},
+		{X: -1, Y: 0},
+		{X: 3, Y: -5},
+	}
+
+	wantTl := Coord{-1, -5}
+	wantBr := Coord{7, 5}
+
+	tl, br := Boundaries(coords)
+
+	if tl != wantTl {
+		t.Errorf("Boundaries tl = %v, want %v", tl, wantTl)
+	}
+	if br != wantBr {
+		t.Errorf("Boundaries br = %v, want %v", br, wantBr)
+	}
+}

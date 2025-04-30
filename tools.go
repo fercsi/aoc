@@ -20,7 +20,7 @@ func Sum[E addable](s []E) E {
 }
 
 // SumFunc maps each element using f and returns the sum of the results.
-func SumFunc[E addable](s []E, f func(e E) E) E {
+func SumFunc[S any, E addable](s []S, f func(e S) E) E {
 	var sum E
 	for _, v := range s {
 		sum += f(v)
