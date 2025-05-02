@@ -1,6 +1,9 @@
 package aoc
 
-import "math"
+import (
+	"iter"
+	"math"
+)
 
 // Coord represents a 2D coordinate point
 type Coord struct {
@@ -103,7 +106,7 @@ func Distance(coord1, coord2 Coord) int {
 	return dist
 }
 
-// AtCoord returns the value found at coord if the given area
+// AtCoord returns the value found at coord of the given area
 func AtCoord[E any](area [][]E, coord Coord) E {
 	return area[coord.Y][coord.X]
 }
@@ -121,6 +124,11 @@ func AtCoordUnlimited[E any](area [][]E, coord Coord, defaultValue E) E {
 	return row[coord.X]
 }
 
+// SetAtCoord sets the value at coord of a 2D slice of elements
+func SetAtCoord[E any](area [][]E, coord Coord, val E) {
+	area[coord.Y][coord.X] = val
+}
+
 // Boundaries returns the top left corner and the bottom right corner of the
 // smallestboundary box containing each coordinates
 func Boundaries(coords []Coord) (Coord, Coord) {
@@ -129,18 +137,24 @@ func Boundaries(coords []Coord) (Coord, Coord) {
 	miny := minx
 	maxy := maxx
 	for _, s := range coords {
-		if s.X < minx {
-			minx = s.X
-		}
-		if s.X > maxx {
-			maxx = s.X
-		}
-		if s.Y < miny {
-			miny = s.Y
-		}
-		if s.Y > maxy {
-			maxy = s.Y
-		}
+		minx = min(minx, s.X)
+		maxx = max(maxx, s.X)
+		miny = min(miny, s.Y)
+		maxy = max(maxy, s.Y)
 	}
 	return Coord{minx, miny}, Coord{maxx, maxy}
+}
+
+// GridCoords returns an iterator of Coord values for each point in a 2D rectangle
+// defined by its top-left and bottom-right coordinates (inclusive).
+func GridCoords(tl, br Coord) iter.Seq[Coord] {
+	return func(yield func(Coord) bool) {
+		for y := tl.Y; y <= br.Y; y++ {
+			for x := tl.X; x <= br.X; x++ {
+				if !yield(Coord{x, y}) {
+					return
+				}
+			}
+		}
+	}
 }

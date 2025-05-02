@@ -327,6 +327,19 @@ func TestAtCoordUnlimited(t *testing.T) {
 	}
 }
 
+func TestSetAtCoord(t *testing.T) {
+	area := [][]int{
+		{0, 0},
+		{0, 0},
+	}
+	coord := Coord{1, 0}
+	SetAtCoord(area, coord, 42)
+
+	if area[coord.Y][coord.X] != 42 {
+		t.Errorf("SetAtCoord failed: got %d, want 42", area[coord.Y][coord.X])
+	}
+}
+
 func TestBoundaries(t *testing.T) {
 	coords := []Coord{
 		{X: 1, Y: 5},
@@ -345,5 +358,34 @@ func TestBoundaries(t *testing.T) {
 	}
 	if br != wantBr {
 		t.Errorf("Boundaries br = %v, want %v", br, wantBr)
+	}
+}
+
+func TestGridCoords(t *testing.T) {
+	tl := Coord{0, 0}
+	br := Coord{1, 1}
+	got := []Coord{}
+	for coord := range GridCoords(tl, br) {
+		got = append(got, coord)
+	}
+
+	want := []Coord{
+		{0, 0}, {1, 0},
+		{0, 1}, {1, 1},
+	}
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("GridCoords() = %v, want %v", got, want)
+	}
+
+	// Test early termination
+	count := 0
+	GridCoords(tl, br)(func(Coord) bool {
+		count++
+		return false // stop immediately
+	})
+
+	if count != 1 {
+		t.Errorf("Expected early termination after 1 call, got %d", count)
 	}
 }

@@ -71,7 +71,9 @@ func main() {
 - `func Distance(coord1, coord2 Coord) int`
 - `func AtCoord[E any](area [][]E, coord Coord) E`
 - `func AtCoordUnlimited[E any](area [][]E, coord Coord, defaultValue E) E`
+- `func SetAtCoord[E any](area [][]E, coord Coord, val E)`
 - `func Boundaries(coords []Coord) (Coord, Coord)`
+- `func GridCoords(tl, br Coord) iter.Seq[Coord]`
 
 ### Save results as an image
 
