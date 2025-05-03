@@ -81,6 +81,26 @@ func TestSumSeq(t *testing.T) {
 	}
 }
 
+func TestCountIf(t *testing.T) {
+	nums := []int{1, 2, 3, 4, 5, 6}
+	isEven := func(n int) bool {
+		return n%2 == 0
+	}
+
+	got := CountIf(nums, isEven)
+	want := 3
+
+	if got != want {
+		t.Errorf("CountIf = %d, want %d", got, want)
+	}
+
+	empty := []int{}
+	gotEmpty := CountIf(empty, isEven)
+	if gotEmpty != 0 {
+		t.Errorf("CountIf on empty slice = %d, want 0", gotEmpty)
+	}
+}
+
 func TestGrid2D(t *testing.T) {
 	// Teljes bejárás teszt
 	got := [][2]int{}

@@ -37,6 +37,17 @@ func SumSeq[E addable](seq iter.Seq[E]) E {
 	return sum
 }
 
+// CountIf returns the number of elements in s which pass the f test funvtion
+func CountIf[S any](s []S, f func(S) bool) int {
+	count := 0
+	for _, v := range s {
+		if f(v) {
+			count++
+		}
+	}
+	return count
+}
+
 // Grid2D returns an iterator of x, y values for each point in a 2D rectangle
 // defined by startx, endx, starty, endy values (ends not inclusive).
 func Grid2D(startx, endx, starty, endy int) iter.Seq2[int, int] {
