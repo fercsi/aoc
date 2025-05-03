@@ -2,6 +2,7 @@ package aoc
 
 import (
 	"maps"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -77,5 +78,33 @@ func TestSumSeq(t *testing.T) {
 
 	if got != want {
 		t.Errorf("SumiSeq = %d, want %d", got, want)
+	}
+}
+
+func TestGrid2D(t *testing.T) {
+	// Teljes bejárás teszt
+	got := [][2]int{}
+	for x, y := range Grid2D(0, 2, 3, 5) {
+		got = append(got, [2]int{x, y})
+	}
+
+	want := [][2]int{
+		{0, 3}, {1, 3},
+		{0, 4}, {1, 4},
+	}
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("Grid2D iteration = %v, want %v", got, want)
+	}
+
+	// Megszakítás teszt
+	count := 0
+	Grid2D(0, 2, 3, 5)(func(x, y int) bool {
+		count++
+		return false // azonnal megszakítjuk
+	})
+
+	if count != 1 {
+		t.Errorf("Expected early termination after 1 call, got %d", count)
 	}
 }
