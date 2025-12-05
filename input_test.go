@@ -95,7 +95,7 @@ func TestReadInputBytes(t *testing.T) {
 }
 
 func TestReadInputSplit(t *testing.T) {
-	err := os.WriteFile("input-csv.txt", []byte("a,b\n1,2\n"), 0644)
+	err := os.WriteFile("input-csv.txt", []byte("a,b\n\n1,2\n"), 0644)
 	if err != nil {
 		t.Fatalf("failed to write test input: %v", err)
 	}
@@ -104,7 +104,7 @@ func TestReadInputSplit(t *testing.T) {
 	os.Args = []string{"cmd", "-csv"}
 
 	split := ReadInputSplit(",")
-	want := [][]string{{"a", "b"}, {"1", "2"}}
+	want := [][]string{{"a", "b"}, {}, {"1", "2"}}
 	for i := range want {
 		for j := range want[i] {
 			if split[i][j] != want[i][j] {

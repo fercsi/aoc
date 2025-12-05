@@ -27,7 +27,7 @@ func ReadInput() []string {
 	}
 	input, err := os.ReadFile(filename)
 	check(err)
-	lines := strings.Split(string(input), "\n")
+	lines := splitEmpty(string(input), "\n")
 	return lines[:len(lines)-1]
 }
 
@@ -48,14 +48,14 @@ func ReadInputSplit(delimiter string) [][]string {
 	input := ReadInput()
 	var result [][]string
 	for _, line := range input {
-		result = append(result, strings.Split(line, delimiter))
+		result = append(result, splitEmpty(line, delimiter))
 	}
 	return result
 }
 
 func ReadInputLineSplit(delimiter string) []string {
 	input := ReadInputLine()
-	return strings.Split(input, delimiter)
+	return splitEmpty(input, delimiter)
 }
 
 func ReadInputInt() []int {
@@ -93,4 +93,11 @@ func ParseLineIntList(line string) []int {
 		row = append(row, num)
 	}
 	return row
+}
+
+func splitEmpty(text string, delimiter string) []string {
+	if text == "" {
+		return []string{}
+	}
+	return strings.Split(text, delimiter)
 }
