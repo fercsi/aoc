@@ -48,6 +48,10 @@ func main() {
 - `func ReadInputInt() []int`
 - `func ReadInputIntList() [][]int`
 - `func ReadInputLineIntList() []int`
+- `func ParseSplit(input []string, delimiter string) [][]string`
+- `func ParseLineSplit(input string, delimiter string) []string`
+- `func ParseInt(input []string) []int`
+- `func ParseIntList(input []string) [][]int`
 - `func ParseLineIntList(line string) []int`
 
 ### Show intermediate and final results

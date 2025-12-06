@@ -27,7 +27,7 @@ func ReadInput() []string {
 	}
 	input, err := os.ReadFile(filename)
 	check(err)
-	lines := splitEmpty(string(input), "\n")
+	lines := ParseLineSplit(string(input), "\n")
 	return lines[:len(lines)-1]
 }
 
@@ -46,20 +46,45 @@ func ReadInputBytes() [][]byte {
 
 func ReadInputSplit(delimiter string) [][]string {
 	input := ReadInput()
-	var result [][]string
-	for _, line := range input {
-		result = append(result, splitEmpty(line, delimiter))
-	}
-	return result
+	return ParseSplit(input, delimiter)
 }
 
 func ReadInputLineSplit(delimiter string) []string {
 	input := ReadInputLine()
-	return splitEmpty(input, delimiter)
+	return ParseLineSplit(input, delimiter)
 }
 
 func ReadInputInt() []int {
 	input := ReadInput()
+	return ParseInt(input)
+}
+
+func ReadInputIntList() [][]int {
+	input := ReadInput()
+	return ParseIntList(input)
+}
+
+func ReadInputLineIntList() []int {
+	input := ReadInputLine()
+	return ParseLineIntList(input)
+}
+
+func ParseSplit(input []string, delimiter string) [][]string {
+	var result [][]string
+	for _, line := range input {
+		result = append(result, ParseLineSplit(line, delimiter))
+	}
+	return result
+}
+
+func ParseLineSplit(input string, delimiter string) []string {
+	if input == "" {
+		return []string{}
+	}
+	return strings.Split(input, delimiter)
+}
+
+func ParseInt(input []string) []int {
 	var result []int
 	for _, line := range input {
 		num, err := strconv.Atoi(line)
@@ -69,18 +94,12 @@ func ReadInputInt() []int {
 	return result
 }
 
-func ReadInputIntList() [][]int {
-	input := ReadInput()
+func ParseIntList(input []string) [][]int {
 	var result [][]int
 	for _, line := range input {
 		result = append(result, ParseLineIntList(line))
 	}
 	return result
-}
-
-func ReadInputLineIntList() []int {
-	input := ReadInputLine()
-	return ParseLineIntList(input)
 }
 
 func ParseLineIntList(line string) []int {
@@ -93,11 +112,4 @@ func ParseLineIntList(line string) []int {
 		row = append(row, num)
 	}
 	return row
-}
-
-func splitEmpty(text string, delimiter string) []string {
-	if text == "" {
-		return []string{}
-	}
-	return strings.Split(text, delimiter)
 }
