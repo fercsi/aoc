@@ -81,6 +81,49 @@ func TestSumSeq(t *testing.T) {
 	}
 }
 
+func TestProd(t *testing.T) {
+	t.Run("Prod of ints", func(t *testing.T) {
+		ints := []int{1, 2, 3, 4}
+		want := 24
+		got := Prod(ints)
+		if got != want {
+			t.Errorf("Prod(ints) = %d; want %d", got, want)
+		}
+	})
+
+	t.Run("Prod of float64s", func(t *testing.T) {
+		floats := []float64{1.5, 2.0, 3.25}
+		want := 9.75
+		got := Prod(floats)
+		if got != want {
+			t.Errorf("Prod(floats) = %f; want %f", got, want)
+		}
+	})
+}
+
+func TestProdFunc(t *testing.T) {
+	t.Run("Prod of squares of ints", func(t *testing.T) {
+		ints := []int{1, 2, 3}
+		want := 36
+		got := ProdFunc(ints, func(x int) int {
+			return x * x
+		})
+		if got != want {
+			t.Errorf("ProdFunc(squares) = %d; want %d", got, want)
+		}
+	})
+}
+
+func TestProdSeq(t *testing.T) {
+	lut := map[string]int{"a": 1, "b": 2, "c": 3, "d": 4, "e": 5}
+	got := ProdSeq(maps.Values(lut))
+	want := 120
+
+	if got != want {
+		t.Errorf("ProdiSeq = %d, want %d", got, want)
+	}
+}
+
 func TestCountIf(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5, 6}
 	isEven := func(n int) bool {

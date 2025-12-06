@@ -84,6 +84,9 @@ func main() {
 - `func Sum[E addable](s []E) E`
 - `func SumFunc[S any, E addable](s []S, f func(e S) E) E`
 - `func SumSeq[E addable](seq iter.Seq[E]) E`
+- `func Prod[E mulable](s []E) E`
+- `func ProdFunc[S any, E mulable](s []S, f func(e S) E) E`
+- `func ProdSeq[E mulable](seq iter.Seq[E]) E`
 - `func CountIf[S any](s []S, f func(S) bool) int`
 - `func Grid2D(startx, endx, starty, endy int) iter.Seq2[int, int]`
 

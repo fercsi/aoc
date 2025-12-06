@@ -10,6 +10,13 @@ type addable interface {
 		~string
 }
 
+type mulable interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64 |
+		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 |
+		~float32 | ~float64 |
+		~complex64 | ~complex128
+}
+
 // Sum returns the sum of all elements in the slice.
 func Sum[E addable](s []E) E {
 	var sum E
@@ -35,6 +42,33 @@ func SumSeq[E addable](seq iter.Seq[E]) E {
 		sum += v
 	}
 	return sum
+}
+
+// Prod returns the product of all elements in the slice.
+func Prod[E mulable](s []E) E {
+	prod := E(1)
+	for _, v := range s {
+		prod *= v
+	}
+	return prod
+}
+
+// ProdFunc maps each element using f and returns the product of the results.
+func ProdFunc[S any, E mulable](s []S, f func(e S) E) E {
+	prod := E(1)
+	for _, v := range s {
+		prod *= f(v)
+	}
+	return prod
+}
+
+// Prod returns the product of all elements defined by seq.
+func ProdSeq[E mulable](seq iter.Seq[E]) E {
+	prod := E(1)
+	for v := range seq {
+		prod *= v
+	}
+	return prod
 }
 
 // CountIf returns the number of elements in s which pass the f test funvtion
