@@ -171,3 +171,31 @@ func TestGrid2D(t *testing.T) {
 		t.Errorf("Expected early termination after 1 call, got %d", count)
 	}
 }
+
+func TestTranspose(t *testing.T) {
+	input := []string{
+		"abc",
+		"defgh",
+		"ij",
+	}
+
+	want := []string{
+		"adi",
+		"bej",
+		"cf",
+		" g",
+		" h",
+	}
+
+	got := Transpose(input)
+
+	if len(got) != len(want) {
+		t.Fatalf("unexpected output length: got %d, want %d\noutput=%q", len(got), len(want), got)
+	}
+
+	for i := range want {
+		if got[i] != want[i] {
+			t.Errorf("line %d mismatch: got %q, want %q", i, got[i], want[i])
+		}
+	}
+}

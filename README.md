@@ -93,6 +93,7 @@ func main() {
 - `func ProdSeq[E mulable](seq iter.Seq[E]) E`
 - `func CountIf[S any](s []S, f func(S) bool) int`
 - `func Grid2D(startx, endx, starty, endy int) iter.Seq2[int, int]`
+- `func Transpose(lines []string) []string`
 
 ### Dijkstra algprithm
 

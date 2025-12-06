@@ -95,3 +95,37 @@ func Grid2D(startx, endx, starty, endy int) iter.Seq2[int, int] {
 		}
 	}
 }
+
+// Transpose returns the column-wise transpose of the given lines. Missing
+// characters are filled with spaces, and trailing spaces are trimmed while
+// leading spaces are preserved.
+func Transpose(lines []string) []string {
+	maxLen := 0
+	for _, s := range lines {
+		if len(s) > maxLen {
+			maxLen = len(s)
+		}
+	}
+
+	out := make([]string, 0, maxLen)
+
+	for col := 0; col < maxLen; col++ {
+		buf := make([]byte, len(lines))
+		for row := range lines {
+			if col < len(lines[row]) {
+				buf[row] = lines[row][col]
+			} else {
+				buf[row] = ' '
+			}
+		}
+
+		end := len(buf)
+		for end > 0 && buf[end-1] == ' ' {
+			end--
+		}
+
+		out = append(out, string(buf[:end]))
+	}
+
+	return out
+}
